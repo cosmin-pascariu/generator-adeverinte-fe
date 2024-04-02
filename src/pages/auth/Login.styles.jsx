@@ -30,6 +30,10 @@ export const RightContainer = styled.div`
     height: 100%;
     object-fit: cover;
   }
+
+  @media (max-width: 1100px) {
+    display: none;
+  }
 `;
 
 export const FormContainer = styled.div`
@@ -40,6 +44,19 @@ export const FormContainer = styled.div`
   border: 1px solid #cacaca;
   background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 600px;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    box-shadow: none;
+    border: none;
+    padding: 20px;
+  }
+
+  .row {
+    display: flex;
+  }
 
   h1 {
     color: #000;
@@ -58,18 +75,29 @@ export const FormContainer = styled.div`
   }
 
   input {
-    width: 482px;
+    width: 100%;
     height: 48px;
     padding: 10px;
     border: 1px solid #d3d3d3;
     background-color: ${Colors.white};
     border-radius: 10px;
-    margin-bottom: 15px;
+    padding: 5px;
+    padding-left: 15px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    margin-bottom: 10px;
+  }
+
+  input[type="password"] {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
   input::placeholder {
     color: ${Colors.gray_da};
-    padding: 5px;
   }
 
   label {
@@ -112,6 +140,22 @@ export const FormContainer = styled.div`
       color: ${Colors.blue};
     }
   }
+
+  .password-eye {
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px solid #d3d3d3;
+    width: 48px;
+    border-left: none;
+
+    svg {
+      cursor: pointer;
+    }
+  }
 `;
 
 export const RowContainer = styled.div`
@@ -120,10 +164,17 @@ export const RowContainer = styled.div`
   justify-content: space-between;
   margin-bottom: 44px;
 
+  .remember-me {
+    padding-top: 5px;
+    display: flex;
+    align-items: center;
+  }
+
   input {
     margin-right: 10px;
     width: 15px;
-    height: 12px;
+    height: 15px;
+    margin-bottom: 3px;
   }
 
   input[type="checkbox"]:checked {

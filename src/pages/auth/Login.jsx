@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FormContainer,
   LeftContainer,
@@ -7,9 +7,12 @@ import {
   RowContainer,
 } from "./Login.styles";
 import GoogleButton from "../../components/google-button/GoogleButton";
-// import LoginBg from "../../assets/login-background.png";
+import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
 
 function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <LoginContainer>
       <LeftContainer>
@@ -19,9 +22,24 @@ function Login() {
           <label htmlFor="email">Email</label>
           <input type="text" placeholder="Email" />
           <label htmlFor="password">Password</label>
-          <input type="password" placeholder="Password" />
+          <div className="row">
+            <input type="password" placeholder="Password" />
+            <div className="password-eye">
+              {showPassword ? (
+                <AiOutlineEyeInvisible
+                  onClick={() => setShowPassword(!showPassword)}
+                  size={24}
+                />
+              ) : (
+                <AiOutlineEye
+                  onClick={() => setShowPassword(!showPassword)}
+                  size={24}
+                />
+              )}
+            </div>
+          </div>
           <RowContainer>
-            <div>
+            <div className="remember-me">
               <input type="checkbox" />
               <label htmlFor="remember">Remember me</label>
             </div>
@@ -35,7 +53,6 @@ function Login() {
         </FormContainer>
       </LeftContainer>
       <RightContainer>
-        {/* <img src={LoginBg} alt="login" /> */}
         <video autoPlay loop muted>
           <source
             src={require("../../assets/USV-2022-nosound.mp4")}

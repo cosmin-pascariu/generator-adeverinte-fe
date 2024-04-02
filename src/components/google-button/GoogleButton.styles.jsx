@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const GoogleButtonContainer = styled.div`
-  width: 482px;
+  width: 100%;
   height: 48px;
   flex-direction: row;
   display: flex;
