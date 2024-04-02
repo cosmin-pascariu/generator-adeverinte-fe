@@ -15,8 +15,10 @@ function Navbar() {
         <NavbarUserName>UserName</NavbarUserName>
       </div>
       <NavbarLinks>
-        <NavbarLink to="/home">Home</NavbarLink>
-        <NavbarLink to="/requests-list">Requests List</NavbarLink>
+        <NavbarLink to="/home">Cereri</NavbarLink>
+        <NavbarLink to="/requests-list">Listare</NavbarLink>
+        <NavbarLink to="/home">Arhiva</NavbarLink>
+        <NavbarLink to="/requests-list">Studenti</NavbarLink>
       </NavbarLinks>
       <NavbarLink to="/login">Logout</NavbarLink>
     </NavbarContainer>

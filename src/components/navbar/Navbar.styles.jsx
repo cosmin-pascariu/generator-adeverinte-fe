@@ -9,12 +9,12 @@ export const NavbarContainer = styled.nav`
   width: 100%;
   height: 80px;
   background-color: ${Colors.blue};
+  padding: 0 20px;
 `;
 
 export const NavbarLogo = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 20px;
   color: ${Colors.white};
   font-size: 24px;
   font-weight: 500;
@@ -23,7 +23,7 @@ export const NavbarLogo = styled.div`
 export const NavbarUserName = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  margin-right: 100px;
   color: ${Colors.white};
   font-size: 24px;
   font-weight: 500;
@@ -32,7 +32,7 @@ export const NavbarUserName = styled.div`
 export const NavbarLinks = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  margin-right: auto;
   color: ${Colors.white};
   font-size: 24px;
   font-weight: 500;
