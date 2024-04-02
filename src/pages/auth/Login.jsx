@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FormContainer,
   LeftContainer,
@@ -9,9 +9,27 @@ import {
 import GoogleButton from "../../components/google-button/GoogleButton";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { GoogleLogin } from "@react-oauth/google";
+import jwtExtractor from "../../utils/jwtExtractor";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [accessTokenData, setAccessTokenData] = useState("");
+  const navigation = useNavigate();
+
+  useEffect(() => {
+    if (accessTokenData) {
+      console.log(accessTokenData);
+      if (accessTokenData.hd === "student.usv.ro") {
+        navigation("/home");
+      } else {
+        toast.error("You must use a student.usv.ro account");
+      }
+    }
+  }, [accessTokenData]);
 
   return (
     <LoginContainer>
@@ -46,10 +64,21 @@ function Login() {
             <a href="/">Forgot your password?</a>
           </RowContainer>
           <button>Login</button>
-          <GoogleButton />
-          <span>
+          {/* <GoogleButton /> */}
+          <div id="googleButton">
+            <GoogleLogin
+              onSuccess={(tokenResponse) => {
+                setAccessTokenData(jwtExtractor(tokenResponse.credential));
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+              width={window.innerWidth < 768 ? window.innerWidth - 40 : 400}
+            />
+          </div>
+          <p className="text">
             Don't have an account?<a href="/"> Sign up</a>
-          </span>
+          </p>
         </FormContainer>
       </LeftContainer>
       <RightContainer>
@@ -60,6 +89,7 @@ function Login() {
           />
         </video>
       </RightContainer>
+      <ToastContainer />
     </LoginContainer>
   );
 }

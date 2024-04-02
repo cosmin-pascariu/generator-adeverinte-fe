@@ -12,6 +12,7 @@ export const LoginContainer = styled.div`
 export const LeftContainer = styled.div`
   display: flex;
   flex: 1;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -45,7 +46,7 @@ export const FormContainer = styled.div`
   background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 100%;
-  max-width: 600px;
+  max-width: 520px;
   margin: 0;
 
   @media (max-width: 768px) {
@@ -129,11 +130,17 @@ export const FormContainer = styled.div`
     background-color: #1e3faa;
   }
 
-  span {
+  #googleButton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .text {
     color: ${Colors.gray};
     font-size: 16px;
-    margin-top: 27px;
     text-align: center;
+    margin-top: 10px;
 
     a {
       text-decoration: none;

@@ -1,13 +1,14 @@
 import React from "react";
 import { GoogleButtonContainer } from "./GoogleButton.styles";
 import { useGoogleLogin } from "@react-oauth/google";
+import jwtExtractor from "../../utils/jwtExtractor";
 
 function GoogleButton() {
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => console.log(codeResponse),
-    flow: "auth-code",
-    cookiePolicy: "single_host_origin",
-    ux_mode: "popup",
+    onSuccess: (data) => {
+      console.table(data);
+      // jwtExtractor(data.accessToken);
+    },
   });
 
   return (
