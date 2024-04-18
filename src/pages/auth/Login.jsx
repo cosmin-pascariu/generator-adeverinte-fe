@@ -23,6 +23,12 @@ function Login() {
   useEffect(() => {
     if (accessTokenData) {
       console.log(accessTokenData);
+      localStorage.setItem(
+        "userName",
+        accessTokenData.given_name + " " + accessTokenData.family_name
+      );
+      localStorage.setItem("userPicture", accessTokenData.picture);
+
       if (accessTokenData.hd === "student.usv.ro") {
         navigation("/home");
       } else {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { HomeContainer } from "./Home.styles";
 import ReactPaginate from "react-paginate";
@@ -363,11 +363,12 @@ const PaginatedItems = ({ itemsPerPage }) => {
       <Items currentItems={currentItems} />
       <ReactPaginate
         pageCount={Math.ceil(items.length / itemsPerPage)}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={2}
         marginPagesDisplayed={2}
         containerClassName={"pagination"}
         previousLabel={"<"}
         nextLabel={">"}
+        breakLabel={"..."}
         nextClassName="page-item-white"
         previousClassName="page-item-white"
         pageClassName="page-item"
@@ -383,6 +384,21 @@ const PaginatedItems = ({ itemsPerPage }) => {
 };
 
 function Home() {
+  const [formResponses, setFormResponses] = useState([]);
+
+  // useEffect(() => {
+  //   fetch(
+  //     "https://script.google.com/macros/s/AKfycbw7pEkepK5Z3DW8o_SkQqpRPH9tZgHIu21SS8uRDoBY5Iuj_m1pzjUypnZRPq0GN6gw/exec"
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => setFormResponses(data))
+  //     .catch((error) => console.error("Error fetching data:", error));
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("FORM", formResponses);
+  // }, [formResponses]);
+
   return (
     <>
       <Navbar />
@@ -404,6 +420,14 @@ function Home() {
             <PaginatedItems itemsPerPage={5} />
           </tbody>
         </table>
+        <button
+          // navigate to www.google.com
+          onClick={() =>
+            window.open("https://forms.gle/ouvuxtonFQjJ2h819", "_blank")
+          }
+        >
+          Creeaza o cerere
+        </button>
         <ToastContainer />
       </HomeContainer>
     </>

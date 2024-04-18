@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   NavbarContainer,
   NavbarLink,
@@ -8,17 +8,38 @@ import {
 } from "./Navbar.styles";
 
 function Navbar() {
+  const userName = localStorage.getItem("userName");
+  const userPicture = localStorage.getItem("userPicture");
+  const path = window.location.pathname;
+
   return (
     <NavbarContainer>
-      <div style={{ display: "flex", gap: "20px" }}>
-        <NavbarLogo>Navbar</NavbarLogo>
-        <NavbarUserName>UserName</NavbarUserName>
+      <div style={{ display: "flex", gap: "5px" }}>
+        <NavbarLogo>
+          <img
+            src={userPicture}
+            alt="user"
+            style={{ width: "30px", height: "30px", borderRadius: "50%" }}
+          />
+        </NavbarLogo>
+        <NavbarUserName>{userName || "Utilizator"}</NavbarUserName>
       </div>
       <NavbarLinks>
-        <NavbarLink to="/home">Cereri</NavbarLink>
-        <NavbarLink to="/requests-list">Listare</NavbarLink>
-        <NavbarLink to="/home">Arhiva</NavbarLink>
-        <NavbarLink to="/requests-list">Studenti</NavbarLink>
+        <NavbarLink to="/home" isSelected={path.includes("home")}>
+          Cereri
+        </NavbarLink>
+        <NavbarLink
+          to="/requests-list"
+          isSelected={path.includes("requests-list")}
+        >
+          Listare
+        </NavbarLink>
+        <NavbarLink to="/arhiva" isSelected={path.includes("arhiva")}>
+          Arhiva
+        </NavbarLink>
+        <NavbarLink to="/students" isSelected={path.includes("students")}>
+          Studenti
+        </NavbarLink>
       </NavbarLinks>
       <NavbarLink to="/login">Logout</NavbarLink>
     </NavbarContainer>
