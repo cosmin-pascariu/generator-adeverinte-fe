@@ -3,6 +3,7 @@ import Navbar from "../../components/navbar/Navbar";
 import { HomeContainer } from "./Home.styles";
 import ReactPaginate from "react-paginate";
 import { ToastContainer, toast } from "react-toastify";
+import XLSX from "xlsx";
 
 const items = [
   {
@@ -403,7 +404,27 @@ function Home() {
     <>
       <Navbar />
       <HomeContainer>
-        <h1>Lista cereri</h1>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <h1>Cereri aprobate: {items.length}</h1>
+          <button
+            // save items data into XLSX file
+            onClick={async () => {
+              const XLSX = await import("xlsx");
+              const ws = XLSX.utils.json_to_sheet(items);
+              const wb = XLSX.utils.book_new();
+              XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+              XLSX.writeFile(wb, "export.xlsx");
+            }}
+          >
+            Listati adeverintele
+          </button>
+        </div>
         <table>
           <thead>
             <tr>
@@ -417,17 +438,10 @@ function Home() {
             </tr>
           </thead>
           <tbody>
-            <PaginatedItems itemsPerPage={5} />
+            <PaginatedItems itemsPerPage={10} />
           </tbody>
         </table>
-        <button
-          // navigate to www.google.com
-          onClick={() =>
-            window.open("https://forms.gle/ouvuxtonFQjJ2h819", "_blank")
-          }
-        >
-          Creeaza o cerere
-        </button>
+
         <ToastContainer />
       </HomeContainer>
     </>
