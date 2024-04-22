@@ -12,6 +12,8 @@ function Navbar() {
   const userPicture = localStorage.getItem("userPicture");
   const path = window.location.pathname;
 
+  console.log("User picture:", userPicture);
+
   return (
     <NavbarContainer>
       <div style={{ display: "flex", gap: "5px" }}>
@@ -41,7 +43,9 @@ function Navbar() {
           Studenti
         </NavbarLink>
       </NavbarLinks>
-      <NavbarLink to="/login">Logout</NavbarLink>
+      <NavbarLink to="/login" onClick={() => localStorage.clear()}>
+        Logout
+      </NavbarLink>
     </NavbarContainer>
   );
 }
