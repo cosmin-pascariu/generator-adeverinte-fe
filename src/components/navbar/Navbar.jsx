@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   NavbarContainer,
   NavbarLink,
@@ -11,8 +11,6 @@ function Navbar() {
   const userName = localStorage.getItem("userName");
   const userPicture = localStorage.getItem("userPicture");
   const path = window.location.pathname;
-
-  console.log("User picture:", userPicture);
 
   return (
     <NavbarContainer>

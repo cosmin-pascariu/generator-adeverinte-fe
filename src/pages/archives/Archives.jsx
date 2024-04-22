@@ -386,18 +386,18 @@ const PaginatedItems = ({ itemsPerPage }) => {
 function Archives() {
   const [formResponses, setFormResponses] = useState([]);
 
-  // useEffect(() => {
-  //   fetch(
-  //     "https://script.google.com/macros/s/AKfycbw7pEkepK5Z3DW8o_SkQqpRPH9tZgHIu21SS8uRDoBY5Iuj_m1pzjUypnZRPq0GN6gw/exec"
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => setFormResponses(data))
-  //     .catch((error) => console.error("Error fetching data:", error));
-  // }, []);
+  useEffect(() => {
+    fetch(
+      "https://script.google.com/macros/s/AKfycbw7pEkepK5Z3DW8o_SkQqpRPH9tZgHIu21SS8uRDoBY5Iuj_m1pzjUypnZRPq0GN6gw/exec"
+    )
+      .then((response) => response.json())
+      .then((data) => setFormResponses(data))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
 
-  // useEffect(() => {
-  //   console.log("FORM", formResponses);
-  // }, [formResponses]);
+  useEffect(() => {
+    console.log("FORM", formResponses);
+  }, [formResponses]);
 
   return (
     <>

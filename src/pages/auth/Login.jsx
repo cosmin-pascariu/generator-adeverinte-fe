@@ -6,7 +6,6 @@ import {
   RightContainer,
   RowContainer,
 } from "./Login.styles";
-import GoogleButton from "../../components/google-button/GoogleButton";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { GoogleLogin } from "@react-oauth/google";
@@ -35,7 +34,7 @@ function Login() {
         toast.error("You must use a student.usv.ro account");
       }
     }
-  }, [accessTokenData]);
+  }, [accessTokenData, navigation]);
 
   return (
     <LoginContainer>
