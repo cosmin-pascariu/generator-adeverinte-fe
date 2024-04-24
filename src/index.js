@@ -4,12 +4,20 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
+const ReduxProvider = ({ children }) => {
+  return <Provider store={store}>{children}</Provider>;
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <GoogleOAuthProvider clientId="338398583164-fo9oru4aa0fdrs6ue66c51i3goqj9nfu.apps.googleusercontent.com">
-      <App />
+      <ReduxProvider>
+        <App />
+      </ReduxProvider>
     </GoogleOAuthProvider>
   </React.StrictMode>
 );

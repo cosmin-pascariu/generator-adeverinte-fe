@@ -13,15 +13,44 @@ import jwtExtractor from "../../utils/jwtExtractor";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/features/userSlice";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [accessTokenData, setAccessTokenData] = useState("");
   const navigation = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
+  const handleLogin = () => {
+    if (!email || !password) {
+      toast.error("Compleatați toate câmpurile!");
+      return;
+    }
+    dispatch(login({ userName: email }));
+    console.log("email", email);
+    localStorage.setItem("userName", email);
+    localStorage.setItem("userPicture", "");
+    localStorage.setItem("userRole", "admin");
+    isAdmin() ? navigation("/profile") : navigation("/home");
+  };
+
+  const isAdmin = () => {
+    const item = localStorage.getItem("userRole");
+    return item === "admin";
+  };
 
   useEffect(() => {
     if (accessTokenData) {
-      console.log(accessTokenData);
+      dispatch(
+        login({
+          userName:
+            accessTokenData.given_name + " " + accessTokenData.family_name,
+          picture: accessTokenData.picture,
+        })
+      );
       localStorage.setItem(
         "userName",
         accessTokenData.given_name + " " + accessTokenData.family_name
@@ -29,24 +58,37 @@ function Login() {
       localStorage.setItem("userPicture", accessTokenData.picture);
 
       if (accessTokenData.hd === "student.usv.ro") {
-        navigation("/home");
+        isAdmin() ? navigation("/profile") : navigation("/home");
       } else {
         toast.error("You must use a student.usv.ro account");
       }
     }
   }, [accessTokenData, navigation]);
 
+  useEffect(() => {
+    console.log("email", email);
+    console.log("password", password);
+  }, [email, password]);
+
   return (
     <LoginContainer>
       <LeftContainer>
         <FormContainer>
           <h1>Log in</h1>
-          <h5>Enter your account details below.</h5>
+          <h5>Enter your account details below - only for Admins</h5>
           <label htmlFor="email">Email</label>
-          <input type="text" placeholder="Email" />
+          <input
+            type="text"
+            placeholder="Email"
+            onChange={(event) => setEmail(event.target.value)}
+          />
           <label htmlFor="password">Password</label>
           <div className="row">
-            <input type="password" placeholder="Password" />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
             <div className="password-eye">
               {showPassword ? (
                 <AiOutlineEyeInvisible
@@ -68,8 +110,7 @@ function Login() {
             </div>
             <a href="/">Forgot your password?</a>
           </RowContainer>
-          <button>Login</button>
-          {/* <GoogleButton /> */}
+          <button onClick={handleLogin}>Login</button>
           <div id="googleButton">
             <GoogleLogin
               onSuccess={(tokenResponse) => {
