@@ -30,7 +30,7 @@ function Login() {
     localStorage.setItem("userName", email);
     localStorage.setItem("userPicture", "");
     localStorage.setItem("userRole", "admin");
-    isAdmin() ? navigation("/profile") : navigation("/home");
+    isAdmin() ? navigation("/profil") : navigation("/home");
   };
 
   const isAdmin = () => {
@@ -54,7 +54,7 @@ function Login() {
       localStorage.setItem("userPicture", accessTokenData.picture);
 
       if (accessTokenData.hd === "student.usv.ro") {
-        isAdmin() ? navigation("/profile") : navigation("/home");
+        isAdmin() ? navigation("/profil") : navigation("/home");
       } else {
         toast.error("You must use a student.usv.ro account");
       }
