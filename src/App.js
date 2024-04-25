@@ -13,6 +13,7 @@ import { PaginaNegasita } from "./pages/notFound/PaginaNegasita";
 import { useSelector } from "react-redux";
 import Profile from "./pages/profile/Profile";
 import FacultyPage from "./pages/faculty/Faculty";
+import SecretariesPage from "./pages/secretaries/Secretaries";
 
 function App() {
   const { userName } = useSelector((state) => state.user);
@@ -38,7 +39,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           {isAdmin() && (
             <Route
-              path="/profile"
+              path="/profil"
               element={
                 <PrivateRoute>
                   <Profile />
@@ -52,6 +53,16 @@ function App() {
               element={
                 <PrivateRoute>
                   <FacultyPage />
+                </PrivateRoute>
+              }
+            />
+          )}
+          {isAdmin() && (
+            <Route
+              path="/secretari"
+              element={
+                <PrivateRoute>
+                  <SecretariesPage />
                 </PrivateRoute>
               }
             />

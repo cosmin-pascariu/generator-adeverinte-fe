@@ -37,7 +37,7 @@ export const RightContainer = styled.div`
   }
 `;
 
-export const FormContainer = styled.div`
+export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   padding: 60px;

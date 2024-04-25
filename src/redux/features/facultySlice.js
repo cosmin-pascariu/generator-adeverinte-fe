@@ -4,11 +4,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const facultySlice = createSlice({
   name: "faculty",
   initialState: {
-    fullname: "Facultatea de Informatica",
-    shortname: "FII",
-    year: 2021,
-    decan: "Popescu Ion",
-    secretar: "Ionescu Maria",
+    fullname: "Facultatea de Inginerie Electrică și Știința Calculatoarelor",
+    shortname: "FIESC",
+    year: new Date().getFullYear(),
+    decan: "Prof.univ.dr.ing Dan Laurențiu MILICI",
+    secretar: "ing. Elena CURELARU",
   },
   reducers: {
     setFaculty: (state, action) => {

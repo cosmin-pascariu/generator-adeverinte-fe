@@ -48,11 +48,14 @@ function Navbar() {
       <NavbarLinks>
         {isAdmin ? (
           <>
-            <NavbarLink to="/profile" isSelected={path.includes("profile")}>
+            <NavbarLink to="/profil" isSelected={path.includes("profil")}>
               Profil
             </NavbarLink>
             <NavbarLink to="/facultate" isSelected={path.includes("facultate")}>
               Facultate
+            </NavbarLink>
+            <NavbarLink to="/secretari" isSelected={path.includes("secretari")}>
+              Secretari
             </NavbarLink>
             <NavbarLink to="/students" isSelected={path.includes("students")}>
               Studenti
@@ -63,7 +66,6 @@ function Navbar() {
           </>
         ) : (
           <>
-            {" "}
             <NavbarLink to="/home" isSelected={path.includes("home")}>
               Cereri
             </NavbarLink>
@@ -83,7 +85,7 @@ function Navbar() {
         )}
       </NavbarLinks>
       <NavbarLink to="/login" onClick={() => localStorage.clear()}>
-        Logout
+        Delogare
       </NavbarLink>
     </NavbarContainer>
   );

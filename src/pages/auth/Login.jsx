@@ -25,10 +25,6 @@ function Login() {
   const dispatch = useDispatch();
 
   const handleLogin = () => {
-    if (!email || !password) {
-      toast.error("Compleatați toate câmpurile!");
-      return;
-    }
     dispatch(login({ userName: email }));
     console.log("email", email);
     localStorage.setItem("userName", email);
@@ -73,21 +69,25 @@ function Login() {
   return (
     <LoginContainer>
       <LeftContainer>
-        <FormContainer>
+        <FormContainer onSubmit={handleLogin}>
           <h1>Log in</h1>
           <h5>Enter your account details below - only for Admins</h5>
           <label htmlFor="email">Email</label>
           <input
             type="text"
             placeholder="Email"
+            value={email}
             onChange={(event) => setEmail(event.target.value)}
+            required
           />
           <label htmlFor="password">Password</label>
           <div className="row">
             <input
               type="password"
               placeholder="Password"
+              value={password}
               onChange={(event) => setPassword(event.target.value)}
+              required
             />
             <div className="password-eye">
               {showPassword ? (
@@ -110,7 +110,7 @@ function Login() {
             </div>
             <a href="/">Forgot your password?</a>
           </RowContainer>
-          <button onClick={handleLogin}>Login</button>
+          <button type="submit">Login</button>
           <div id="googleButton">
             <GoogleLogin
               onSuccess={(tokenResponse) => {
