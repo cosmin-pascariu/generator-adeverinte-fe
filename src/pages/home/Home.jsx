@@ -3,6 +3,8 @@ import Navbar from "../../components/navbar/Navbar";
 import { HomeContainer } from "./Home.styles";
 import ReactPaginate from "react-paginate";
 import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
+import Papa from "papaparse";
 // import XLSX from "xlsx";
 
 const items = [
@@ -354,7 +356,7 @@ const Items = ({ currentItems }) => {
   );
 };
 
-const PaginatedItems = ({ itemsPerPage }) => {
+const PaginatedItems = ({ items, itemsPerPage }) => {
   const [pageNumber, setPageNumber] = React.useState(0);
   const pagesVisited = pageNumber * itemsPerPage;
   const currentItems = items.slice(pagesVisited, pagesVisited + itemsPerPage);
@@ -385,20 +387,44 @@ const PaginatedItems = ({ itemsPerPage }) => {
 };
 
 function Home() {
-  const [formResponses, setFormResponses] = useState([]);
+  // const [formResponses, setFormResponses] = useState([]);
+  const [data, setData] = useState([]);
 
+  // useEffect(() => {
+  //   fetch(
+  //     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1gFf44uRi3QNxo-O-iHl6A96qu6f64cSvyHd40VPcQPp47Nqs5WwybKzW7JD3WJc_Xot4slINnP9E/pubhtml"
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => setFormResponses(data))
+  //     .catch((error) => console.error("Error fetching data:", error));
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("FORM", formResponses);
+  // }, [formResponses]);
   useEffect(() => {
-    fetch(
-      "https://script.google.com/macros/s/AKfycbw7pEkepK5Z3DW8o_SkQqpRPH9tZgHIu21SS8uRDoBY5Iuj_m1pzjUypnZRPq0GN6gw/exec"
-    )
-      .then((response) => response.json())
-      .then((data) => setFormResponses(data))
-      .catch((error) => console.error("Error fetching data:", error));
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1gFf44uRi3QNxo-O-iHl6A96qu6f64cSvyHd40VPcQPp47Nqs5WwybKzW7JD3WJc_Xot4slINnP9E/pub?output=csv"
+        );
+        const parsedData = Papa.parse(response.data, { header: true });
+        const mappedData = parsedData.data.map((item, index) => ({
+          id: index,
+          student: item["Nume complet"] || "", // Fallback to empty string if field is missing
+          year: item["An"] || "", // Fallback to empty string if field is missing
+          program: item["Program de studiu"] || "", // Fallback to empty string if field is missing
+          tuition: item["Regim de studiu"] || "", // Fallback to empty string if field is missing
+          usage: item["Motivul cererii"] || "", // Fallback to empty string if field is missing
+        }));
+        setData(mappedData);
+      } catch (error) {
+        console.error("Error fetching the data", error);
+      }
+    };
+
+    fetchData();
   }, []);
-
-  useEffect(() => {
-    console.log("FORM", formResponses);
-  }, [formResponses]);
 
   return (
     <>
@@ -413,6 +439,23 @@ function Home() {
         >
           <h1>Cereri aprobate: {items.length}</h1>
           <button
+            style={{
+              flexWrap: "nowrap",
+              width: 150,
+            }}
+            // save items data into XLSX file
+            onClick={(event) => {
+              event.preventDefault();
+              window.open("https://forms.gle/ceMGZgNV3Cr89Tys8", "_blank");
+            }}
+          >
+            Creează cerere
+          </button>
+          <button
+            style={{
+              flexWrap: "nowrap",
+              width: 150,
+            }}
             // save items data into XLSX file
             onClick={async () => {
               const XLSX = await import("xlsx");
@@ -422,7 +465,7 @@ function Home() {
               XLSX.writeFile(wb, "export.xlsx");
             }}
           >
-            Listati adeverintele
+            Listați adeverințele
           </button>
         </div>
         <table>
@@ -438,7 +481,7 @@ function Home() {
             </tr>
           </thead>
           <tbody>
-            <PaginatedItems itemsPerPage={10} />
+            <PaginatedItems items={data} itemsPerPage={10} />
           </tbody>
         </table>
 

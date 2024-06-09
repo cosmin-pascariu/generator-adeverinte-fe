@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PaginaNegasitaContainer } from "./PaginaNegasita.styles";
 
 export function PaginaNegasita() {
+  const navigate = useNavigate();
+
   return (
     <PaginaNegasitaContainer>
       <svg
@@ -18,7 +20,7 @@ export function PaginaNegasita() {
         />
       </svg>
       <h1>Pagina negasita</h1>
-      <Link to="/" className="link">
+      <Link onClick={() => navigate(-1)} className="link">
         Inapoi la pagina principala
       </Link>
     </PaginaNegasitaContainer>
