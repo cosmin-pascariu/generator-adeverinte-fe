@@ -48,6 +48,14 @@ export const StudentsContainer = styled.div`
     cursor: pointer;
   }
 
+  .table-upload {
+    margin-left: auto;
+
+    div {
+      margin-top: 0px !important;
+    }
+  }
+
   .pagination {
     list-style: none;
     height: 31.5px;

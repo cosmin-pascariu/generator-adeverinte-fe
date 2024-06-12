@@ -2,13 +2,9 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import { ProfileContainer } from "./Profile.styles";
-import getFaculties from "../../services/getFaculties";
-import { setFaculties } from "../../redux/actions/facultiesActions";
-import { useDispatch } from "react-redux";
 
 function Profile() {
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
-  const dispatch = useDispatch();
   const [userPicture, setUserPicture] = useState(
     localStorage.getItem("userPicture") ||
       "https://www.w3schools.com/howto/img_avatar.png"
@@ -37,25 +33,6 @@ function Profile() {
     localStorage.setItem("userName", userName);
     toast.success("Profile updated successfully!");
   };
-
-  const setFacultyData = async () => {
-    const facultate = await getFaculties();
-    dispatch(
-      setFaculties([
-        {
-          fullname: facultate?.nume_complet,
-          shortname: facultate?.nume_scurt,
-          year: facultate?.an_universitar,
-          decan: facultate?.nume_decan,
-          secretar: facultate?.nume_secretar,
-        },
-      ])
-    );
-  };
-
-  useEffect(() => {
-    setFacultyData();
-  }, []);
 
   return (
     <>

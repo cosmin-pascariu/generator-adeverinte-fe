@@ -4,7 +4,10 @@ import { useDispatch } from "react-redux";
 import * as XLSX from "xlsx";
 import validator from "validator";
 import Modal from "react-modal";
-import { setStudents } from "../../redux/actions/studentsActions";
+import {
+  setStudents,
+  setStudentsAction,
+} from "../../redux/actions/studentsActions";
 
 const fileTypes = ["XLSX"];
 
@@ -76,13 +79,6 @@ function XLSXUploader() {
           });
         } else {
           const [emailNume, emailPrenume] = localPart.split(".");
-          console.log(
-            "XXX",
-            emailNume,
-            sanitizedPrenume
-              .replace(/[\u0103\u0119\u021B\u0219]/g, "")
-              .toLowerCase()
-          );
           if (
             !emailNume ||
             !emailPrenume ||
@@ -139,6 +135,21 @@ function XLSXUploader() {
           console.log("Erori de validare:", errors);
         } else {
           dispatch(setStudents(XL_row_object));
+          const payload = XL_row_object.map((item) => ({
+            id: item.id,
+            initiala_tata: item["Inițială Tată"],
+            email: item["Email student"],
+            denumire_program_studii: item["Denumire program de studii"],
+            ciclu_studii: item["Ciclu de studii"],
+            an_studiu: item["An studiu"],
+            domeniu_studii: null,
+            forma_invatamant: item["Forma învățământ"],
+            finantare: item["Finanțare"],
+            nume: item["Nume"],
+            prenume: item["Prenume"],
+            sex: item["Sex"],
+          }));
+          setStudentsAction(payload);
         }
       });
     };

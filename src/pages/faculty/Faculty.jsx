@@ -4,6 +4,7 @@ import Navbar from "../../components/navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { setFaculties } from "../../redux/actions/facultiesActions";
 import updateFaculties from "../../services/updateFaculties";
+import getFaculties from "../../services/getFaculties";
 
 function FacultyPage() {
   const dispatch = useDispatch();
@@ -36,6 +37,25 @@ function FacultyPage() {
       setFacultyMock(faculties[0]);
     }
   }, [faculties]);
+
+  const setFacultyData = async () => {
+    const facultate = await getFaculties();
+    dispatch(
+      setFaculties([
+        {
+          fullname: facultate?.nume_complet,
+          shortname: facultate?.nume_scurt,
+          year: facultate?.an_universitar,
+          decan: facultate?.nume_decan,
+          secretar: facultate?.nume_secretar,
+        },
+      ])
+    );
+  };
+
+  useEffect(() => {
+    setFacultyData();
+  }, []);
 
   return (
     <>

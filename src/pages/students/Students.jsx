@@ -2,9 +2,13 @@ import React, { useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { StudentsContainer } from "./Students.styles";
 import XLSXUploader from "../../components/xlsx-uploader/XlsxUploader";
-import { useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import ReactPaginate from "react-paginate";
+import {
+  getStudentsAction,
+  setStudents,
+} from "../../redux/actions/studentsActions";
 
 const Items = ({ currentItems }) => {
   return (
@@ -35,6 +39,7 @@ const Items = ({ currentItems }) => {
 
 const PaginatedItems = ({ itemsPerPage }) => {
   const { students } = useSelector((state) => state.student);
+
   const [pageNumber, setPageNumber] = React.useState(0);
   const pagesVisited = pageNumber * itemsPerPage;
   const currentItems = students?.slice(
@@ -69,30 +74,59 @@ const PaginatedItems = ({ itemsPerPage }) => {
 
 function StudentsPage() {
   const { students } = useSelector((state) => state.student);
+  const dispatch = useDispatch();
+
+  const getData = async () => {
+    const data = await getStudentsAction();
+    const studs = data.map((item) => ({
+      id: item.id,
+      "Inițială Tată": item.initiala_tata,
+      "Email student": item.email,
+      "Denumire program de studii": item.denumire_program_studii,
+      "Ciclu de studii": item.ciclu_studii,
+      "An studiu": item.an_studiu,
+      // item.domeniu_studii: null,
+      "Forma învățământ": item.forma_invatamant,
+      Finanțare: item.finantare,
+      Nume: item.nume,
+      Prenume: item.prenume,
+      Sex: item.sex,
+    }));
+    dispatch(setStudents(studs));
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <>
       <Navbar />
       <StudentsContainer>
         {students && students.length > 0 ? (
-          <table>
-            <thead>
-              <tr>
-                <th>Nr.</th>
-                <th>Email student</th>
-                <th>Program de studii</th>
-                <th>Ciclul de studii</th>
-                <th>An studiu</th>
-                <th>Forma învățământ</th>
-                <th>Finanțare</th>
-                <th>Nume complet</th>
-                <th>Sex</th>
-              </tr>
-            </thead>
-            <tbody>
-              <PaginatedItems itemsPerPage={10} />
-            </tbody>
-          </table>
+          <>
+            <div className="table-upload">
+              <XLSXUploader />
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nr.</th>
+                  <th>Email student</th>
+                  <th>Program de studii</th>
+                  <th>Ciclul de studii</th>
+                  <th>An studiu</th>
+                  <th>Forma învățământ</th>
+                  <th>Finanțare</th>
+                  <th>Nume complet</th>
+                  <th>Sex</th>
+                </tr>
+              </thead>
+              <tbody>
+                <PaginatedItems itemsPerPage={10} />
+              </tbody>
+            </table>
+          </>
         ) : (
           <XLSXUploader />
         )}
