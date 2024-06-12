@@ -53,14 +53,8 @@ function Profile() {
     );
   };
 
-  // const setSecretariesData = async () => {
-  //   const secr = await getSecretaries();
-  //   dispatch(setSecretaries({}));
-  // };
-
   useEffect(() => {
     setFacultyData();
-    console.log("GET is completed!");
   }, []);
 
   return (
