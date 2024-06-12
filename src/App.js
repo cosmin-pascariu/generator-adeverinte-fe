@@ -10,11 +10,19 @@ import "./App.css";
 import Archives from "./pages/archives/Archives";
 import Requests from "./pages/requests-list/Requests";
 import { PaginaNegasita } from "./pages/notFound/PaginaNegasita";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Profile from "./pages/profile/Profile";
 import FacultyPage from "./pages/faculty/Faculty";
 import SecretariesPage from "./pages/secretaries/Secretaries";
 import StudentsPage from "./pages/students/Students";
+import GoogleForm from "./pages/google-form/GoogleForm";
+import { useEffect } from "react";
+import getFaculties from "./services/getFaculties";
+import SettingsPage from "./pages/settings/SettingsPage";
+import { setFaculties } from "./redux/actions/facultiesActions";
+import getSecretaries from "./services/getSecretaries";
+import { setSecretaries } from "./redux/actions/secretariesActions";
+import jwtExtractor from "./utils/jwtExtractor";
 
 function App() {
   const { userName } = useSelector((state) => state.user);
@@ -27,11 +35,36 @@ function App() {
   const PrivateRoute = ({ children }) => {
     return isAuthenticated() ? children : <Navigate to="/login" replace />;
   };
-
   const isAdmin = () => {
     const item = localStorage.getItem("userRole");
     return item === "admin";
   };
+
+  // const setFacultyData = async () => {
+  //   const facultate = await getFaculties();
+  //   console.log("facultate", facultate);
+  //   dispatch(
+  //     setFaculties([
+  //       {
+  //         fullname: facultate?.nume_complet,
+  //         shortname: facultate?.nume_scurt,
+  //         year: facultate?.an_universitar,
+  //         decan: facultate?.nume_decan,
+  //         secretar: facultate?.nume_secretar,
+  //       },
+  //     ])
+  //   );
+  // };
+
+  // const setSecretariesData = async () => {
+  //   const secr = await getSecretaries();
+  //   dispatch(setSecretaries({}));
+  // };
+
+  // useEffect(() => {
+  //   setFacultyData();
+  //   console.log("GET is completed!");
+  // }, []);
 
   return (
     <Router>
@@ -78,6 +111,16 @@ function App() {
               }
             />
           )}
+          {isAdmin() && (
+            <Route
+              path="/setari"
+              element={
+                <PrivateRoute>
+                  <SettingsPage />
+                </PrivateRoute>
+              }
+            />
+          )}
           {!isAdmin() && (
             <>
               <Route
@@ -101,6 +144,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Archives />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/cerere"
+                element={
+                  <PrivateRoute>
+                    <GoogleForm />
                   </PrivateRoute>
                 }
               />

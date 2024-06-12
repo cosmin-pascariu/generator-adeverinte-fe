@@ -1,25 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FacultyContainer } from "./Faculty.styles";
 import Navbar from "../../components/navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { setFaculty } from "../../redux/features/facultySlice";
+import { setFaculties } from "../../redux/actions/facultiesActions";
+import updateFaculties from "../../services/updateFaculties";
 
 function FacultyPage() {
   const dispatch = useDispatch();
   const [isInputDisabled, setIsInputDisabled] = useState(true);
-  const facultyData = useSelector((state) => state.faculty);
-  const [facultyMock, setFacultyMock] = useState(facultyData);
+  const { faculties } = useSelector((state) => state.faculty);
+  const facultate = faculties[0];
+  const [facultyMock, setFacultyMock] = useState(facultate);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const fullname = e.target.fullname.value;
+    const fullname = e.target?.fullname.value;
     const shortname = e.target.shortname.value;
     const year = e.target.year.value;
     const decan = e.target.decan.value;
     const secretar = e.target.secretar.value;
-    dispatch(setFaculty({ fullname, shortname, year, decan, secretar }));
+    const payload = {
+      nume_complet: fullname,
+      nume_scurt: shortname,
+      an_universitar: year,
+      nume_decan: decan,
+      nume_secretar: secretar,
+    };
+    dispatch(setFaculties(payload));
+    updateFaculties(payload);
     setIsInputDisabled(true);
   };
+
+  useEffect(() => {
+    if (faculties && faculties[0]) {
+      setFacultyMock(faculties[0]);
+    }
+  }, [faculties]);
 
   return (
     <>
@@ -32,7 +48,7 @@ function FacultyPage() {
             id="fullname"
             name="fullname"
             required
-            value={facultyMock.fullname}
+            value={facultyMock?.fullname || ""}
             onChange={(e) =>
               setFacultyMock({ ...facultyMock, fullname: e.target.value })
             }
@@ -44,7 +60,7 @@ function FacultyPage() {
             id="shortname"
             name="shortname"
             required
-            value={facultyMock.shortname}
+            value={facultyMock?.shortname || ""}
             onChange={(e) =>
               setFacultyMock({ ...facultyMock, shortname: e.target.value })
             }
@@ -56,7 +72,7 @@ function FacultyPage() {
             id="year"
             name="year"
             required
-            value={facultyMock.year}
+            value={facultyMock?.year || ""}
             onChange={(e) =>
               setFacultyMock({ ...facultyMock, year: e.target.value })
             }
@@ -68,7 +84,7 @@ function FacultyPage() {
             id="decan"
             name="decan"
             required
-            value={facultyMock.decan}
+            value={facultyMock?.decan || ""}
             onChange={(e) =>
               setFacultyMock({ ...facultyMock, decan: e.target.value })
             }
@@ -80,7 +96,7 @@ function FacultyPage() {
             id="secretar"
             name="secretar"
             required
-            value={facultyMock.secretar}
+            value={facultyMock?.secretar || ""}
             onChange={(e) =>
               setFacultyMock({ ...facultyMock, secretar: e.target.value })
             }
@@ -103,7 +119,7 @@ function FacultyPage() {
               <button
                 type="button"
                 onClick={() => {
-                  setFacultyMock(facultyData);
+                  setFacultyMock(facultate);
                   setIsInputDisabled(true);
                 }}
               >

@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import { ProfileContainer } from "./Profile.styles";
+import getFaculties from "../../services/getFaculties";
+import { setFaculties } from "../../redux/actions/facultiesActions";
+import { useDispatch } from "react-redux";
 
 function Profile() {
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
+  const dispatch = useDispatch();
   const [userPicture, setUserPicture] = useState(
     localStorage.getItem("userPicture") ||
       "https://www.w3schools.com/howto/img_avatar.png"
   );
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -30,6 +38,31 @@ function Profile() {
     toast.success("Profile updated successfully!");
   };
 
+  const setFacultyData = async () => {
+    const facultate = await getFaculties();
+    dispatch(
+      setFaculties([
+        {
+          fullname: facultate?.nume_complet,
+          shortname: facultate?.nume_scurt,
+          year: facultate?.an_universitar,
+          decan: facultate?.nume_decan,
+          secretar: facultate?.nume_secretar,
+        },
+      ])
+    );
+  };
+
+  // const setSecretariesData = async () => {
+  //   const secr = await getSecretaries();
+  //   dispatch(setSecretaries({}));
+  // };
+
+  useEffect(() => {
+    setFacultyData();
+    console.log("GET is completed!");
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -43,6 +76,28 @@ function Profile() {
             value={userName || ""}
             placeholder="Username"
             onChange={(e) => setUserName(e.target.value)}
+          />
+          <label htmlFor="username">Adresa de email:</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            value={userData.email || ""}
+            placeholder="Email"
+            onChange={(e) =>
+              setUserData({ ...userData, email: e.target.value })
+            }
+          />
+          <label htmlFor="password">Parolă:</label>
+          <input
+            type="password"
+            id="passowrd"
+            name="password"
+            value={userData.password || ""}
+            placeholder="Parolă"
+            onChange={(e) =>
+              setUserData({ ...userData, password: e.target.value })
+            }
           />
           <label htmlFor="picture">Poza profil:</label>
           <img

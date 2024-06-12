@@ -31,7 +31,7 @@ export const StudentsContainer = styled.div`
     border-bottom-left-radius: 10px;
   }
 
-  th:nth-child(7) {
+  th:nth-child(9) {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
   }

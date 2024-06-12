@@ -13,10 +13,13 @@ import jwtExtractor from "../../utils/jwtExtractor";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
-import { login } from "../../redux/features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, login } from "../../redux/actions/userActions";
+import getFaculties from "../../services/getFaculties";
+import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
 
 function Login() {
+  const { token } = useSelector((state) => state.user);
   const [showPassword, setShowPassword] = useState(false);
   const [accessTokenData, setAccessTokenData] = useState("");
   const navigation = useNavigate();
@@ -25,28 +28,33 @@ function Login() {
   const dispatch = useDispatch();
 
   const handleLogin = () => {
-    dispatch(login({ userName: email }));
-    console.log("email", email);
-    localStorage.setItem("userName", email);
-    localStorage.setItem("userPicture", "");
-    localStorage.setItem("userRole", "admin");
-    isAdmin() ? navigation("/profil") : navigation("/home");
+    const payload = {
+      email,
+      password,
+    };
+    login(payload, dispatch);
+    // dispatch(addUser({ userName: email }));
+    // localStorage.setItem("userName", email);
+    // localStorage.setItem("userPicture", "");
+    // localStorage.setItem("userRole", "admin");
+    // isAdmin ? navigation("/profil") : navigation("/home");
   };
 
-  const isAdmin = () => {
-    const item = localStorage.getItem("userRole");
-    return item === "admin";
-  };
+  // const isAdmin = () => {
+
+  //   return jwtExtractor(token)?.role === "admin";
+  // };
 
   useEffect(() => {
     if (accessTokenData) {
-      dispatch(
-        login({
-          userName:
-            accessTokenData.given_name + " " + accessTokenData.family_name,
-          picture: accessTokenData.picture,
-        })
-      );
+      console.log("WE ARE HERE!");
+      // dispatch(
+      //   login({
+      //     userName:
+      //       accessTokenData.given_name + " " + accessTokenData.family_name,
+      //     picture: accessTokenData.picture,
+      //   })
+      // );
       localStorage.setItem(
         "userName",
         accessTokenData.given_name + " " + accessTokenData.family_name
@@ -54,7 +62,8 @@ function Login() {
       localStorage.setItem("userPicture", accessTokenData.picture);
 
       if (accessTokenData.hd === "student.usv.ro") {
-        isAdmin() ? navigation("/profil") : navigation("/home");
+        navigation("/home");
+        // isAdmin() ? navigation("/profil") : navigation("/home");
       } else {
         toast.error("You must use a student.usv.ro account");
       }
@@ -62,32 +71,58 @@ function Login() {
   }, [accessTokenData, navigation]);
 
   useEffect(() => {
-    console.log("email", email);
-    console.log("password", password);
-  }, [email, password]);
+    console.log("TOKEN", token);
+    if (token) {
+      localStorage.setItem("userName", email);
+      localStorage.setItem("userPicture", "");
+      localStorage.setItem("userRole", "admin");
+      localStorage.setItem("token", token);
+      jwtExtractor(token)?.role === "admin"
+        ? navigation("/profil")
+        : navigation("/home");
+    }
+  }, [token]);
 
   return (
     <LoginContainer>
       <LeftContainer>
-        <FormContainer onSubmit={handleLogin}>
-          <h1>Log in</h1>
-          <h5>Enter your account details below - only for Admins</h5>
-          <label htmlFor="email">Email</label>
+        <FormContainer>
+          <h1>Autentificare Secretariat/Student</h1>
+          <div id="googleButton">
+            <GoogleLogin
+              onSuccess={(tokenResponse) => {
+                setAccessTokenData(jwtExtractor(tokenResponse.credential));
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+              width={window.innerWidth < 768 ? window.innerWidth - 40 : 400}
+            />
+          </div>
+
+          <div className="divider">
+            <div className="line" />
+            <p className="or">SAU</p>
+            <div className="line" />
+          </div>
+          <h1>Autentificare Administrator</h1>
+          <h5>Introdu credențialele</h5>
+          <label htmlFor="email">Adresa de email</label>
           <input
             type="text"
             placeholder="Email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            required
+            // required
           />
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Parolă</label>
           <div className="row">
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              required
+              // required
             />
             <div className="password-eye">
               {showPassword ? (
@@ -106,25 +141,11 @@ function Login() {
           <RowContainer>
             <div className="remember-me">
               <input type="checkbox" />
-              <label htmlFor="remember">Remember me</label>
+              <label htmlFor="remember">Păstrează-mă autentificat</label>
             </div>
-            <a href="/">Forgot your password?</a>
+            <a href="/">Ai uitat parola?</a>
           </RowContainer>
-          <button type="submit">Login</button>
-          <div id="googleButton">
-            <GoogleLogin
-              onSuccess={(tokenResponse) => {
-                setAccessTokenData(jwtExtractor(tokenResponse.credential));
-              }}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-              width={window.innerWidth < 768 ? window.innerWidth - 40 : 400}
-            />
-          </div>
-          <p className="text">
-            Don't have an account?<a href="/"> Sign up</a>
-          </p>
+          <button onClick={() => handleLogin()}>Autentificare</button>
         </FormContainer>
       </LeftContainer>
       <RightContainer>

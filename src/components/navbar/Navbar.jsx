@@ -6,6 +6,8 @@ import {
   NavbarLogo,
   NavbarUserName,
 } from "./Navbar.styles";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../redux/actions/userActions";
 
 function Navbar() {
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
@@ -14,8 +16,13 @@ function Navbar() {
   );
   const path = window.location.pathname;
   const userRole = localStorage.getItem("userRole");
-
+  const dispatch = useDispatch();
   const isAdmin = userRole === "admin";
+
+  const handleLogout = () => {
+    localStorage.clear();
+    dispatch(setToken(""));
+  };
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -84,8 +91,8 @@ function Navbar() {
           </>
         )}
       </NavbarLinks>
-      <NavbarLink to="/login" onClick={() => localStorage.clear()}>
-        Delogare
+      <NavbarLink to="/login" onClick={() => handleLogout()}>
+        Deconectare
       </NavbarLink>
     </NavbarContainer>
   );

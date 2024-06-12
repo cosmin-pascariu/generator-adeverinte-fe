@@ -1,13 +1,16 @@
 // src/store.js
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./features/userSlice";
-import facultyReducer from "./features/facultySlice";
-import studentsReducer from "./features/studentsSlice";
+//reducers
+import studentsReducer from "./reducers/studentsReducer";
+import usersReducer from "./reducers/userReducer";
+import facultiesReducer from "./reducers/facultiesReducer";
+import secretariesReducer from "./reducers/secretariesReducer";
 
 export const store = configureStore({
   reducer: {
-    user: userReducer,
-    faculty: facultyReducer,
-    students: studentsReducer,
+    user: usersReducer,
+    faculty: facultiesReducer,
+    student: studentsReducer,
+    secretary: secretariesReducer,
   },
 });

@@ -73,8 +73,9 @@ function SecretariesPage() {
         <table>
           <thead>
             <tr>
-              <th>Nume</th>
+              <th>Nume complet</th>
               <th>Email</th>
+              <th>Titlu</th>
               <th>Opțiuni</th>
             </tr>
           </thead>
@@ -105,6 +106,7 @@ function SecretariesPage() {
                     sec.email
                   )}
                 </td>
+                <td>ing</td>
                 <td>
                   {editId === sec.id ? (
                     <>

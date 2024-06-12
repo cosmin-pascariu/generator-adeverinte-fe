@@ -13,19 +13,20 @@ const Items = ({ currentItems }) => {
         currentItems.map((item) => (
           <tr key={item.id}>
             <td>{item.id}</td>
-            <td>{item.student}</td>
-            <td>{item.year}</td>
-            <td>{item.program}</td>
-            <td>{item.tuition}</td>
-            <td>{item.usage}</td>
+            <td>{item["Email student"]}</td>
+            <td>{item["Denumire program de studii"]}</td>
+            <td>{item["Ciclu de studii"]}</td>
+            <td>{item["An studiu"]}</td>
+            <td>{item["Forma învățământ"]}</td>
+            <td>{item["Finanțare"]}</td>
             <td>
-              <button onClick={() => toast.success("Cererea a fost aprobata!")}>
-                Accepta
-              </button>
-              <button onClick={() => toast.error("Cererea a fost respinsa!")}>
-                Respinge
-              </button>
+              {item["Nume"] +
+                " " +
+                item["Inițială Tată"] +
+                " " +
+                item["Prenume"]}
             </td>
+            <td>{item["Sex"]}</td>
           </tr>
         ))}
     </>
@@ -33,10 +34,10 @@ const Items = ({ currentItems }) => {
 };
 
 const PaginatedItems = ({ itemsPerPage }) => {
-  const { students } = useSelector((state) => state.students);
+  const { students } = useSelector((state) => state.student);
   const [pageNumber, setPageNumber] = React.useState(0);
   const pagesVisited = pageNumber * itemsPerPage;
-  const currentItems = students.slice(
+  const currentItems = students?.slice(
     pagesVisited,
     pagesVisited + itemsPerPage
   );
@@ -67,11 +68,7 @@ const PaginatedItems = ({ itemsPerPage }) => {
 };
 
 function StudentsPage() {
-  const { students } = useSelector((state) => state.students);
-
-  useEffect(() => {
-    console.log(students);
-  }, [students]);
+  const { students } = useSelector((state) => state.student);
 
   return (
     <>
@@ -82,12 +79,14 @@ function StudentsPage() {
             <thead>
               <tr>
                 <th>Nr.</th>
-                <th>Student</th>
-                <th>Anul de studiu</th>
-                <th>Program de studiu</th>
-                <th>Regim taxa</th>
-                <th>Utilizare</th>
-                <th>Optiuni</th>
+                <th>Email student</th>
+                <th>Program de studii</th>
+                <th>Ciclul de studii</th>
+                <th>An studiu</th>
+                <th>Forma învățământ</th>
+                <th>Finanțare</th>
+                <th>Nume complet</th>
+                <th>Sex</th>
               </tr>
             </thead>
             <tbody>

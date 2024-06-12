@@ -8,6 +8,7 @@ export const HomeContainer = styled.div`
   margin-top: 20px;
   width: 100%;
   padding: 0 50px;
+  padding-bottom: 100px;
 
   h1 {
     text-align: left;

@@ -5,6 +5,7 @@ import ReactPaginate from "react-paginate";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Papa from "papaparse";
+import { useNavigate, useNavigation } from "react-router-dom";
 // import XLSX from "xlsx";
 
 const items = [
@@ -389,6 +390,7 @@ const PaginatedItems = ({ items, itemsPerPage }) => {
 function Home() {
   // const [formResponses, setFormResponses] = useState([]);
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   fetch(
@@ -444,10 +446,11 @@ function Home() {
               width: 150,
             }}
             // save items data into XLSX file
-            onClick={(event) => {
-              event.preventDefault();
-              window.open("https://forms.gle/ceMGZgNV3Cr89Tys8", "_blank");
-            }}
+            // onClick={(event) => {
+            //   event.preventDefault();
+            //   window.open("https://forms.gle/ceMGZgNV3Cr89Tys8", "_blank");
+            // }}
+            onClick={() => navigate("/cerere")}
           >
             Creează cerere
           </button>
@@ -484,7 +487,6 @@ function Home() {
             <PaginatedItems items={data} itemsPerPage={10} />
           </tbody>
         </table>
-
         <ToastContainer />
       </HomeContainer>
     </>

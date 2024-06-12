@@ -37,7 +37,7 @@ export const RightContainer = styled.div`
   }
 `;
 
-export const FormContainer = styled.form`
+export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 60px;
@@ -63,7 +63,7 @@ export const FormContainer = styled.form`
     color: #000;
     text-align: left;
     text-align: left;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 400;
   }
 
@@ -162,6 +162,25 @@ export const FormContainer = styled.form`
     svg {
       cursor: pointer;
     }
+  }
+
+  .divider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+  }
+
+  .line {
+    width: 50%;
+    height: 2px;
+    background-color: #d3d3d3;
+  }
+
+  .or {
+    color: #cccccc;
+    font-size: 14px;
+    margin: 0 10px;
   }
 `;
 
