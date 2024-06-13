@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import {
   ADD_USER,
   REMOVE_USER,
@@ -37,7 +38,7 @@ export const login = async (payload, dispatch) => {
       body: JSON.stringify(payload),
     });
     const data = await response.json();
-    console.log("data", data);
+    toast.error("Adresă de email sau parolă incorecte!");
     dispatch(setToken(data?.access_token));
     return data[0];
   } catch (error) {

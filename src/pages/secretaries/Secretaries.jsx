@@ -24,11 +24,13 @@ function SecretariesPage() {
     });
   };
 
-  const handleCancel = () => {
+  const handleCancel = (index) => {
     setForm({});
-    if (editId + 1 > secretariesData.length)
+    console.log(index + 1, "-", secretariesData.length);
+    if (index + 1 === secretariesData.length && !isEditMode)
       setSecretariesData((prevData) => prevData.filter((s) => s.id !== editId));
     setEditId(null);
+    setIsEditMode(false);
   };
 
   const handleSave = async () => {
@@ -136,7 +138,7 @@ function SecretariesPage() {
           </thead>
           <tbody>
             {secretariesData &&
-              secretariesData?.map((sec) => (
+              secretariesData?.map((sec, index) => (
                 <tr key={sec.id}>
                   <td>
                     {editId === sec.id ? (
@@ -178,7 +180,9 @@ function SecretariesPage() {
                     {editId === sec.id ? (
                       <>
                         <button onClick={() => handleSave()}>Salvează</button>
-                        <button onClick={handleCancel}>Anulează</button>
+                        <button onClick={() => handleCancel(index)}>
+                          Anulează
+                        </button>
                         <button
                           onClick={() => {
                             handleDelete();

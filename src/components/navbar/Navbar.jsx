@@ -18,6 +18,7 @@ function Navbar() {
   const userRole = localStorage.getItem("userRole");
   const dispatch = useDispatch();
   const isAdmin = userRole === "admin";
+  const isStudent = userRole === "student";
 
   const handleLogout = () => {
     localStorage.clear();
@@ -67,28 +68,31 @@ function Navbar() {
             <NavbarLink to="/studenti" isSelected={path.includes("studenti")}>
               Studenți
             </NavbarLink>
-            <NavbarLink to="/setari" isSelected={path.includes("setari")}>
-              Setari
-            </NavbarLink>
           </>
         ) : (
-          <>
-            <NavbarLink to="/home" isSelected={path.includes("home")}>
-              Cereri
-            </NavbarLink>
-            <NavbarLink
-              to="/requests-list"
-              isSelected={path.includes("requests-list")}
-            >
-              Listare
-            </NavbarLink>
-            <NavbarLink to="/arhiva" isSelected={path.includes("arhiva")}>
-              Arhiva
-            </NavbarLink>
-            <NavbarLink to="/students" isSelected={path.includes("students")}>
-              Studenti
-            </NavbarLink>
-          </>
+          !isAdmin &&
+          !isStudent && (
+            <>
+              <NavbarLink to="/home" isSelected={path.includes("home")}>
+                Cereri
+              </NavbarLink>
+              <NavbarLink
+                to="/requests-list"
+                isSelected={path.includes("requests-list")}
+              >
+                Listare
+              </NavbarLink>
+              <NavbarLink to="/arhiva" isSelected={path.includes("arhiva")}>
+                Arhiva
+              </NavbarLink>
+              <NavbarLink to="/students" isSelected={path.includes("students")}>
+                Studenti
+              </NavbarLink>
+              <NavbarLink to="/setari" isSelected={path.includes("setari")}>
+                Setari
+              </NavbarLink>
+            </>
+          )
         )}
       </NavbarLinks>
       <NavbarLink to="/login" onClick={() => handleLogout()}>

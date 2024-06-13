@@ -411,14 +411,14 @@ function Archives() {
           }}
         >
           <h1>Lista cereri</h1>
-          <button
+          {/* <button
             // navigate to www.google.com
             onClick={() =>
               window.open("https://forms.gle/ouvuxtonFQjJ2h819", "_blank")
             }
           >
             Creeaza o cerere
-          </button>
+          </button> */}
         </div>
         <table>
           <thead>

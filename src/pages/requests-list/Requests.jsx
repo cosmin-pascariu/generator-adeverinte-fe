@@ -412,12 +412,20 @@ function Requests() {
         >
           <h1>Lista cereri</h1>
           <button
-            // navigate to www.google.com
-            onClick={() =>
-              window.open("https://forms.gle/ouvuxtonFQjJ2h819", "_blank")
-            }
+            style={{
+              flexWrap: "nowrap",
+              width: 150,
+            }}
+            // save items data into XLSX file
+            onClick={async () => {
+              const XLSX = await import("xlsx");
+              const ws = XLSX.utils.json_to_sheet(items);
+              const wb = XLSX.utils.book_new();
+              XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+              XLSX.writeFile(wb, "export.xlsx");
+            }}
           >
-            Creeaza o cerere
+            Listați adeverințele
           </button>
         </div>
         <table>

@@ -39,21 +39,12 @@ function Profile() {
       <Navbar />
       <ProfileContainer>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Nume complet:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={userName || ""}
-            placeholder="Username"
-            onChange={(e) => setUserName(e.target.value)}
-          />
           <label htmlFor="username">Adresa de email:</label>
           <input
             type="text"
             id="email"
             name="email"
-            value={userData.email || ""}
+            value={userData.userName || ""}
             placeholder="Email"
             onChange={(e) =>
               setUserData({ ...userData, email: e.target.value })

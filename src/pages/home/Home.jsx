@@ -388,22 +388,9 @@ const PaginatedItems = ({ items, itemsPerPage }) => {
 };
 
 function Home() {
-  // const [formResponses, setFormResponses] = useState([]);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   fetch(
-  //     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1gFf44uRi3QNxo-O-iHl6A96qu6f64cSvyHd40VPcQPp47Nqs5WwybKzW7JD3WJc_Xot4slINnP9E/pubhtml"
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => setFormResponses(data))
-  //     .catch((error) => console.error("Error fetching data:", error));
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("FORM", formResponses);
-  // }, [formResponses]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -440,36 +427,6 @@ function Home() {
           }}
         >
           <h1>Cereri aprobate: {items.length}</h1>
-          <button
-            style={{
-              flexWrap: "nowrap",
-              width: 150,
-            }}
-            // save items data into XLSX file
-            // onClick={(event) => {
-            //   event.preventDefault();
-            //   window.open("https://forms.gle/ceMGZgNV3Cr89Tys8", "_blank");
-            // }}
-            onClick={() => navigate("/cerere")}
-          >
-            Creează cerere
-          </button>
-          <button
-            style={{
-              flexWrap: "nowrap",
-              width: 150,
-            }}
-            // save items data into XLSX file
-            onClick={async () => {
-              const XLSX = await import("xlsx");
-              const ws = XLSX.utils.json_to_sheet(items);
-              const wb = XLSX.utils.book_new();
-              XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-              XLSX.writeFile(wb, "export.xlsx");
-            }}
-          >
-            Listați adeverințele
-          </button>
         </div>
         <table>
           <thead>

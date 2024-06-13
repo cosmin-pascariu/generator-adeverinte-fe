@@ -33,21 +33,10 @@ function Login() {
       password,
     };
     login(payload, dispatch);
-    // dispatch(addUser({ userName: email }));
-    // localStorage.setItem("userName", email);
-    // localStorage.setItem("userPicture", "");
-    // localStorage.setItem("userRole", "admin");
-    // isAdmin ? navigation("/profil") : navigation("/home");
   };
-
-  // const isAdmin = () => {
-
-  //   return jwtExtractor(token)?.role === "admin";
-  // };
 
   useEffect(() => {
     if (accessTokenData) {
-      console.log("WE ARE HERE!");
       // dispatch(
       //   login({
       //     userName:
@@ -60,22 +49,22 @@ function Login() {
         accessTokenData.given_name + " " + accessTokenData.family_name
       );
       localStorage.setItem("userPicture", accessTokenData.picture);
+      localStorage.setItem("userRole", "student");
 
       if (accessTokenData.hd === "student.usv.ro") {
-        navigation("/home");
-        // isAdmin() ? navigation("/profil") : navigation("/home");
+        navigation("/cerere");
       } else {
-        toast.error("You must use a student.usv.ro account");
+        toast.error("You must use a student.usv.ro account", "_blank");
       }
     }
   }, [accessTokenData, navigation]);
 
   useEffect(() => {
-    console.log("TOKEN", token);
     if (token) {
+      console.log(jwtExtractor(token).role);
       localStorage.setItem("userName", email);
       localStorage.setItem("userPicture", "");
-      localStorage.setItem("userRole", "admin");
+      localStorage.setItem("userRole", jwtExtractor(token).role);
       localStorage.setItem("token", token);
       jwtExtractor(token)?.role === "admin"
         ? navigation("/profil")

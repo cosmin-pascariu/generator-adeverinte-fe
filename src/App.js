@@ -16,62 +16,28 @@ import FacultyPage from "./pages/faculty/Faculty";
 import SecretariesPage from "./pages/secretaries/Secretaries";
 import StudentsPage from "./pages/students/Students";
 import GoogleForm from "./pages/google-form/GoogleForm";
-import { useEffect } from "react";
-import getFaculties from "./services/getFaculties";
 import SettingsPage from "./pages/settings/SettingsPage";
-import { setFaculties } from "./redux/actions/facultiesActions";
-import getSecretaries from "./services/getSecretaries";
-import { setSecretaries } from "./redux/actions/secretariesActions";
-import jwtExtractor from "./utils/jwtExtractor";
+import { useState } from "react";
 
 function App() {
   const { userName } = useSelector((state) => state.user);
+  const isAdmin = localStorage.getItem("userRole") === "admin";
 
   const isAuthenticated = () => {
-    const item = localStorage.getItem("userName");
+    const item = localStorage.getItem("userRole");
     return !!item || !!userName;
   };
 
   const PrivateRoute = ({ children }) => {
     return isAuthenticated() ? children : <Navigate to="/login" replace />;
   };
-  const isAdmin = () => {
-    const item = localStorage.getItem("userRole");
-    return item === "admin";
-  };
-
-  // const setFacultyData = async () => {
-  //   const facultate = await getFaculties();
-  //   console.log("facultate", facultate);
-  //   dispatch(
-  //     setFaculties([
-  //       {
-  //         fullname: facultate?.nume_complet,
-  //         shortname: facultate?.nume_scurt,
-  //         year: facultate?.an_universitar,
-  //         decan: facultate?.nume_decan,
-  //         secretar: facultate?.nume_secretar,
-  //       },
-  //     ])
-  //   );
-  // };
-
-  // const setSecretariesData = async () => {
-  //   const secr = await getSecretaries();
-  //   dispatch(setSecretaries({}));
-  // };
-
-  // useEffect(() => {
-  //   setFacultyData();
-  //   console.log("GET is completed!");
-  // }, []);
 
   return (
     <Router>
       <div className="App">
         <Routes>
           <Route path="/login" element={<Login />} />
-          {isAdmin() && (
+          {isAdmin && (
             <Route
               path="/profil"
               element={
@@ -81,7 +47,7 @@ function App() {
               }
             />
           )}
-          {isAdmin() && (
+          {isAdmin && (
             <Route
               path="/facultate"
               element={
@@ -91,7 +57,7 @@ function App() {
               }
             />
           )}
-          {isAdmin() && (
+          {isAdmin && (
             <Route
               path="/secretari"
               element={
@@ -101,7 +67,7 @@ function App() {
               }
             />
           )}
-          {isAdmin() && (
+          {isAdmin && (
             <Route
               path="/studenti"
               element={
@@ -111,7 +77,7 @@ function App() {
               }
             />
           )}
-          {isAdmin() && (
+          {isAdmin && (
             <Route
               path="/setari"
               element={
@@ -121,7 +87,7 @@ function App() {
               }
             />
           )}
-          {!isAdmin() && (
+          {!isAdmin && (
             <>
               <Route
                 path="/home"
@@ -144,6 +110,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Archives />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/studenti"
+                element={
+                  <PrivateRoute>
+                    <StudentsPage />
                   </PrivateRoute>
                 }
               />
