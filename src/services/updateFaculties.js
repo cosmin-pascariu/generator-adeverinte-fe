@@ -13,7 +13,7 @@ const updateFaculties = async (payload) => {
         },
       }
     );
-    console.log("response", response);
+
     return true;
   } catch (e) {
     console.log("PUT Facultati error:", e);

@@ -5,6 +5,7 @@ import {
   SET_TOKEN,
   SET_USERS,
 } from "../constants/userConstants";
+import axios from "axios";
 
 export const addUser = (user) => ({
   type: ADD_USER,
@@ -28,7 +29,6 @@ export const setToken = (token) => ({
 
 export const login = async (payload, dispatch) => {
   try {
-    console.log("payload", payload);
     const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
       method: "POST",
       headers: {
@@ -44,5 +44,25 @@ export const login = async (payload, dispatch) => {
   } catch (error) {
     console.log("Something went wrong", error);
     return error;
+  }
+};
+
+export const editAdminAction = async (payload, id) => {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await axios.put(
+      `${process.env.REACT_APP_API_URL}/admins/${id}`,
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (e) {
+    console.log("Error edit secretary", e);
   }
 };

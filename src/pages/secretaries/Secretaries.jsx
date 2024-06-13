@@ -26,7 +26,6 @@ function SecretariesPage() {
 
   const handleCancel = (index) => {
     setForm({});
-    console.log(index + 1, "-", secretariesData.length);
     if (index + 1 === secretariesData.length && !isEditMode)
       setSecretariesData((prevData) => prevData.filter((s) => s.id !== editId));
     setEditId(null);
@@ -64,7 +63,6 @@ function SecretariesPage() {
   const handleDelete = async () => {
     try {
       const resp = await deleteSecretaryAction(editId);
-      console.log(resp);
     } catch (e) {
       console.log("delete secretary", e);
     }

@@ -54,7 +54,6 @@ function Login() {
 
   useEffect(() => {
     if (token) {
-      console.log(jwtExtractor(token).role);
       localStorage.setItem("userName", email);
       localStorage.setItem("userPicture", "");
       localStorage.setItem("userRole", jwtExtractor(token).role);

@@ -27,8 +27,6 @@ function Navbar() {
 
   useEffect(() => {
     const handleStorageChange = () => {
-      console.log("userNamex", localStorage.getItem("userName"));
-
       setUserName(localStorage.getItem("userName"));
       setUserPicture(localStorage.getItem("userPicture"));
     };

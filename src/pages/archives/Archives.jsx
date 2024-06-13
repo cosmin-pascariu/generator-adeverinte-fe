@@ -74,10 +74,6 @@ function Archives() {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  useEffect(() => {
-    console.log("FORM", formResponses);
-  }, [formResponses]);
-
   return (
     <>
       <Navbar />

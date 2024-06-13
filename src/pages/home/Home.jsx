@@ -100,11 +100,6 @@ const Items = ({ currentItems }) => {
     window.open(url, "_blank");
   };
 
-  useEffect(() => {
-    console.log("mes", rejectItem.message);
-    console.log("s", rejectItem.item);
-  }, [rejectItem]);
-
   return (
     <>
       {currentItems &&
@@ -178,7 +173,6 @@ const Items = ({ currentItems }) => {
                 toast.error("Trebuie să introduci motivul refuzului!");
                 return;
               }
-              console.log("rehct", rejectItem.item);
               window.location.href = `mailto:${rejectItem.item.email}?subject=Refuzare cerere secretariat USV&body=Bună ziua ${rejectItem.item.student},\n\n Cererea dumneavoastră a fost refuzată pe baza următorului motiv: ${rejectItem.message}`;
               toast.success("Cererea a fost respinsă!");
               setRejectItem({});
