@@ -3,329 +3,7 @@ import Navbar from "../../components/navbar/Navbar";
 import { HomeContainer } from "./Archives.styles";
 import ReactPaginate from "react-paginate";
 import { ToastContainer, toast } from "react-toastify";
-
-const items = [
-  {
-    id: 1,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 2,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 3,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 4,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 5,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 6,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 7,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 8,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 9,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 10,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 11,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 12,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 13,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 14,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 15,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 16,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 17,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 18,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 19,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 20,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 21,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 22,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 23,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 24,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 25,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 26,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 27,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 28,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 29,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 30,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 31,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 32,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 33,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 34,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 35,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 36,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 37,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 38,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 39,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 40,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-];
+import { useSelector } from "react-redux";
 
 const Items = ({ currentItems }) => {
   return (
@@ -353,7 +31,7 @@ const Items = ({ currentItems }) => {
   );
 };
 
-const PaginatedItems = ({ itemsPerPage }) => {
+const PaginatedItems = ({ items, itemsPerPage }) => {
   const [pageNumber, setPageNumber] = React.useState(0);
   const pagesVisited = pageNumber * itemsPerPage;
   const currentItems = items.slice(pagesVisited, pagesVisited + itemsPerPage);
@@ -385,6 +63,7 @@ const PaginatedItems = ({ itemsPerPage }) => {
 
 function Archives() {
   const [formResponses, setFormResponses] = useState([]);
+  const { requests } = useSelector((state) => state.requests);
 
   useEffect(() => {
     fetch(
@@ -411,14 +90,6 @@ function Archives() {
           }}
         >
           <h1>Lista cereri</h1>
-          {/* <button
-            // navigate to www.google.com
-            onClick={() =>
-              window.open("https://forms.gle/ouvuxtonFQjJ2h819", "_blank")
-            }
-          >
-            Creeaza o cerere
-          </button> */}
         </div>
         <table>
           <thead>
@@ -433,7 +104,7 @@ function Archives() {
             </tr>
           </thead>
           <tbody>
-            <PaginatedItems itemsPerPage={10} />
+            <PaginatedItems itemsPerPage={10} items={requests} />
           </tbody>
         </table>
 

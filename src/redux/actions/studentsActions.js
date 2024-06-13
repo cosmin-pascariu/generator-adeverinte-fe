@@ -45,6 +45,8 @@ export const setStudentsAction = async (payload) => {
 export const getStudentsAction = async () => {
   const token = localStorage.getItem("token");
 
+  console.log("token", token);
+
   try {
     const response = await axios.get(
       `${process.env.REACT_APP_API_URL}/studenti`,

@@ -41,6 +41,15 @@ export const HomeContainer = styled.div`
     border-bottom: 1px solid #d5d5d5;
   }
 
+  tr:hover {
+    background-color: #cccccc;
+    cursor: pointer;
+  }
+
+  tr:active {
+    background-color: #dddddd;
+  }
+
   button {
     padding: 5px 10px;
     margin-right: 10px;

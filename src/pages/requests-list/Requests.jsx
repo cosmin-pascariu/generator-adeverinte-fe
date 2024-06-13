@@ -2,330 +2,10 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { HomeContainer } from "./Requests.styles";
 import ReactPaginate from "react-paginate";
-import { ToastContainer, toast } from "react-toastify";
-
-const items = [
-  {
-    id: 1,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 2,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 3,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 4,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 5,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 6,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 7,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 8,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 9,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 10,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 11,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 12,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 13,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 14,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 15,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 16,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 17,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 18,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 19,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 20,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 21,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 22,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 23,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 24,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 25,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 26,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 27,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 28,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 29,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 30,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 31,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 32,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 33,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 34,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 35,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 36,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 37,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 38,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 39,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 40,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-];
+import { ToastContainer } from "react-toastify";
+import axios from "axios";
+import Papa from "papaparse";
+import jsPDF from "jspdf";
 
 const Items = ({ currentItems }) => {
   return (
@@ -334,26 +14,19 @@ const Items = ({ currentItems }) => {
         currentItems.map((item) => (
           <tr key={item.id}>
             <td>{item.id}</td>
-            <td>{item.student}</td>
-            <td>{item.year}</td>
-            <td>{item.program}</td>
-            <td>{item.tuition}</td>
-            <td>{item.usage}</td>
-            <td>
-              <button onClick={() => toast.success("Cererea a fost aprobata!")}>
-                Accepta
-              </button>
-              <button onClick={() => toast.error("Cererea a fost respinsa!")}>
-                Respinge
-              </button>
-            </td>
+            <td>{item["Nume complet"]}</td>
+            <td>{item["An studiu"]}</td>
+            <td>{item["Program studii"]}</td>
+            <td>{item["Finanțare"]}</td>
+            <td>{item["Motiv cerere"]}</td>
+            <td>{item.status}</td>
           </tr>
         ))}
     </>
   );
 };
 
-const PaginatedItems = ({ itemsPerPage }) => {
+const PaginatedItems = ({ items, itemsPerPage }) => {
   const [pageNumber, setPageNumber] = React.useState(0);
   const pagesVisited = pageNumber * itemsPerPage;
   const currentItems = items.slice(pagesVisited, pagesVisited + itemsPerPage);
@@ -384,20 +57,137 @@ const PaginatedItems = ({ itemsPerPage }) => {
 };
 
 function Requests() {
-  const [formResponses, setFormResponses] = useState([]);
+  const [data, setData] = useState([]);
+
+  const generatePdf = () => {
+    const doc = new jsPDF("landscape");
+
+    const forms = [
+      {
+        x: 10,
+        y: 10,
+        studentName: "Student Name 1",
+        year: "2023-2024",
+        program: "Program 1",
+        domain: "Domain 1",
+        studyForm: "Form 1",
+        feeStatus: "Fee 1",
+        purpose: "Purpose 1",
+      },
+      {
+        x: 150,
+        y: 10,
+        studentName: "Student Name 2",
+        year: "2023-2024",
+        program: "Program 2",
+        domain: "Domain 2",
+        studyForm: "Form 2",
+        feeStatus: "Fee 2",
+        purpose: "Purpose 2",
+      },
+      {
+        x: 10,
+        y: 110,
+        studentName: "Student Name 3",
+        year: "2023-2024",
+        program: "Program 3",
+        domain: "Domain 3",
+        studyForm: "Form 3",
+        feeStatus: "Fee 3",
+        purpose: "Purpose 3",
+      },
+      {
+        x: 150,
+        y: 110,
+        studentName: "Student Name 4",
+        year: "2023-2024",
+        program: "Program 4",
+        domain: "Domain 4",
+        studyForm: "Form 4",
+        feeStatus: "Fee 4",
+        purpose: "Purpose 4",
+      },
+    ];
+
+    forms.forEach((formData) => {
+      const {
+        x,
+        y,
+        studentName,
+        year,
+        program,
+        domain,
+        studyForm,
+        feeStatus,
+        purpose,
+      } = formData;
+
+      doc.setFontSize(8);
+      doc.text('UNIVERSITATEA "STEFAN CEL MARE" DIN SUCEAVA', x, y);
+      doc.text(
+        "FACULTATEA DE INGINERIE ELECTRICA SI STIINTA CALCULATOARELOR",
+        x,
+        y + 4
+      );
+      doc.text("Nr ............/FIESC/...........", x + 100, y + 8);
+
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "bold");
+      doc.text("ADEVERINTA", x + 50, y + 20);
+      doc.setFont("helvetica", "normal");
+
+      doc.setFontSize(10);
+      doc.text(
+        `\tStudentul(a) ${studentName} este inscris(a) in anul universitar ${year}, in anul\n I de studii, program de studii: ${program} / domeniul de studii: ${domain}, forma\n de invatamant: ${studyForm}, regim: ${feeStatus}.`,
+        x,
+        y + 30
+      );
+      doc.text(
+        `\tAdeverinta se elibereaza pentru a-i servi la ${purpose}.`,
+        x,
+        y + 42
+      );
+
+      doc.text("DECAN", x, y + 50);
+      doc.text("SECRETAR SEF,", x + 50, y + 50);
+      doc.text("SECRETARIAT,", x + 100, y + 50);
+      doc.setFontSize(8);
+      //Laurenţiu-Dan MILICI
+      doc.text(`Prof.univ.dr.ing. Laurentiu-Dan MILICI`, x, y + 55);
+      doc.text(`Elena CURELARU`, x + 50, y + 55);
+      doc.text(`Laura DOSPINESCU`, x + 100, y + 55);
+    });
+
+    // Create a Blob from the PDF and open it in a new window
+    const pdfBlob = doc.output("blob");
+    const url = URL.createObjectURL(pdfBlob);
+    window.open(url, "_blank");
+  };
 
   useEffect(() => {
-    fetch(
-      "https://script.google.com/macros/s/AKfycbw7pEkepK5Z3DW8o_SkQqpRPH9tZgHIu21SS8uRDoBY5Iuj_m1pzjUypnZRPq0GN6gw/exec"
-    )
-      .then((response) => response.json())
-      .then((data) => setFormResponses(data))
-      .catch((error) => console.error("Error fetching data:", error));
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1gFf44uRi3QNxo-O-iHl6A96qu6f64cSvyHd40VPcQPp47Nqs5WwybKzW7JD3WJc_Xot4slINnP9E/pub?output=csv"
+        );
+        const parsedData = Papa.parse(response.data, { header: true });
+        const mappedData = parsedData.data.map((item, index) => ({
+          id: index,
+          "Nume complet": item["Nume complet"] || "",
+          "An studiu": item["An"] || "",
+          "Program studii": item["Program de studiu"] || "",
+          Finanțare: item["Regim de studiu"] || "",
+          "Motiv cerere": item["Motivul cererii"] || "",
+          status: item["Status"],
+        }));
+        setData(mappedData);
+      } catch (error) {
+        console.error("Error fetching the data", error);
+      }
+    };
+
+    fetchData();
   }, []);
-
-  useEffect(() => {
-    console.log("FORM", formResponses);
-  }, [formResponses]);
 
   return (
     <>
@@ -419,7 +209,7 @@ function Requests() {
             // save items data into XLSX file
             onClick={async () => {
               const XLSX = await import("xlsx");
-              const ws = XLSX.utils.json_to_sheet(items);
+              const ws = XLSX.utils.json_to_sheet(data);
               const wb = XLSX.utils.book_new();
               XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
               XLSX.writeFile(wb, "export.xlsx");
@@ -427,6 +217,7 @@ function Requests() {
           >
             Listați adeverințele
           </button>
+          <button onClick={() => generatePdf()}>Listare (cate 4)</button>
         </div>
         <table>
           <thead>
@@ -437,11 +228,11 @@ function Requests() {
               <th>Program de studiu</th>
               <th>Regim taxa</th>
               <th>Utilizare</th>
-              <th>Optiuni</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            <PaginatedItems itemsPerPage={10} />
+            <PaginatedItems itemsPerPage={10} items={data} />
           </tbody>
         </table>
 

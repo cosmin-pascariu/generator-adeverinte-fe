@@ -85,7 +85,7 @@ function Navbar() {
               <NavbarLink to="/arhiva" isSelected={path.includes("arhiva")}>
                 Arhiva
               </NavbarLink>
-              <NavbarLink to="/students" isSelected={path.includes("students")}>
+              <NavbarLink to="/studenti" isSelected={path.includes("studenti")}>
                 Studenti
               </NavbarLink>
               <NavbarLink to="/setari" isSelected={path.includes("setari")}>

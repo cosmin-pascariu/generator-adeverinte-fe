@@ -5,338 +5,111 @@ import ReactPaginate from "react-paginate";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Papa from "papaparse";
-import { useNavigate, useNavigation } from "react-router-dom";
-// import XLSX from "xlsx";
+import jsPDF from "jspdf";
+import Modal from "react-modal";
 
-const items = [
-  {
-    id: 1,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    display: "flex",
+    flexDirection: "column",
   },
-  {
-    id: 2,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 3,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 4,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 5,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 6,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 7,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 8,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 9,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 10,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 11,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 12,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 13,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 14,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 15,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 16,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 17,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 18,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 19,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 20,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 21,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 22,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 23,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 24,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 25,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 26,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 27,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 28,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 29,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 30,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 31,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 32,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 33,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 34,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 35,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 36,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 37,
-    student: "Georgescu Andrei",
-    year: 3,
-    program: "Master: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 38,
-    student: "Popa Elena",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-  {
-    id: 39,
-    student: "Popescu Ion",
-    year: 1,
-    program: "Licenta: Calculatoare",
-    tuition: "Buget",
-    usage: "Studii",
-  },
-  {
-    id: 40,
-    student: "Ionescu Maria",
-    year: 2,
-    program: "Master: Calculatoare",
-    tuition: "Taxa",
-    usage: "Studii",
-  },
-];
+};
 
 const Items = ({ currentItems }) => {
+  const [isDeleteItemActive, setIsDeleteItemActive] = useState(false);
+  const [rejectItem, setRejectItem] = useState({
+    item: {},
+    message: "",
+  });
+
+  function replaceDiacritics(text) {
+    const diacriticsMap = {
+      ă: "a",
+      â: "a",
+      î: "i",
+      ș: "s",
+      ț: "t",
+      Ă: "A",
+      Â: "A",
+      Î: "I",
+      Ș: "S",
+      Ț: "T",
+    };
+
+    return text?.replace(/[ăâîșțĂÂÎȘȚ]/g, (match) => diacriticsMap[match]);
+  }
+
+  const generatePdf = (form) => {
+    const formData = {
+      student: replaceDiacritics(form.student),
+      year: form.year, // Assuming year does not contain diacritics
+      program: replaceDiacritics(form.program),
+      domain: replaceDiacritics(form.domain),
+      tuition: replaceDiacritics(form.tuition),
+      usage: replaceDiacritics(form.usage),
+    };
+
+    const doc = new jsPDF();
+
+    doc.setFontSize(8);
+    doc.setFont("helvetica");
+    doc.text('UNIVERSITATEA "STEFAN CEL MARE" DIN SUCEAVA', 10, 10);
+    doc.text(
+      "FACULTATEA DE INGINERIE ELECTRICA SI STIINTA CALCULATOARELOR",
+      10,
+      14
+    );
+    doc.text("Nr ................./FIESC/................", 160, 18);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold"); // Set font to bold
+    doc.text("ADEVERINTA", 95, 35);
+    doc.setFont("helvetica", "normal"); // Reset font to normal
+
+    doc.setFontSize(10);
+    doc.text(
+      `\tStudentul(a) ${formData.student} este inscris(a) in anul universitar ${formData.year}, in anul I de studii, program de studii:\n ${formData.program} / domeniul de studii: ${formData.domain}, forma de invatamant: ZI, regim: ${formData.tuition}.`,
+      20,
+      45
+    );
+    doc.text(
+      `\tAdeverinta se elibereaza pentru a-i servi la ${formData.usage}.`,
+      20,
+      53
+    );
+    doc.setFont("helvetica", "bold"); // Set font to bold
+    doc.text("DECAN,", 20, 65);
+    doc.text("SECRETAR SEF,", 90, 65);
+    doc.text("SECRETARIAT,", 160, 65);
+    doc.setFont("helvetica", "normal"); // Reset font to normal
+
+    //Laurenţiu-Dan MILICI
+    doc.text(`Prof.univ.dr.ing. Laurentiu-Dan MILICI`, 8, 70);
+    doc.text(`Elena CURELARU`, 90, 70);
+    doc.text(`Laura DOSPINESCU`, 160, 70);
+
+    // doc.save("adeverinta.pdf"); //TODO: doc.save descarca pdf-ul
+    // Create a Blob from the PDF and open it in a new window
+    const pdfBlob = doc.output("blob");
+    const url = URL.createObjectURL(pdfBlob);
+    window.open(url, "_blank");
+  };
+
+  useEffect(() => {
+    console.log("mes", rejectItem.message);
+    console.log("s", rejectItem.item);
+  }, [rejectItem]);
+
   return (
     <>
       {currentItems &&
         currentItems.map((item) => (
-          <tr key={item.id}>
+          <tr key={item.id} onClick={() => generatePdf(item)}>
             <td>{item.id}</td>
             <td>{item.student}</td>
             <td>{item.year}</td>
@@ -344,15 +117,88 @@ const Items = ({ currentItems }) => {
             <td>{item.tuition}</td>
             <td>{item.usage}</td>
             <td>
-              <button onClick={() => toast.success("Cererea a fost aprobata!")}>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+
+                  // Get today's date and add one day for tomorrow
+                  const today = new Date();
+                  const tomorrow = new Date(today);
+                  tomorrow.setDate(tomorrow.getDate() + 1);
+
+                  // Format the date as 'dd-mm-yyyy'
+                  const formattedDate = `${tomorrow.getDate()}-${
+                    tomorrow.getMonth() + 1
+                  }-${tomorrow.getFullYear()}`;
+
+                  window.location.href = `mailto:${item.email}?subject=Aprobare cerere secretariat USV&body=Bună ziua ${item.student},\n\n Puteți ridica adeverința de la secretariat începând cu data de ${formattedDate}, în perioada programului de lucru al secretariatului.`;
+                  toast.success("Cererea a fost aprobată!");
+                }}
+              >
                 Accepta
               </button>
-              <button onClick={() => toast.error("Cererea a fost respinsa!")}>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsDeleteItemActive(true);
+                  setRejectItem({ ...rejectItem, item: item });
+                }}
+              >
                 Respinge
               </button>
             </td>
           </tr>
         ))}
+      <Modal isOpen={isDeleteItemActive} style={customStyles}>
+        <h1>Motivul refuzului</h1>
+        <textarea
+          onChange={(e) =>
+            setRejectItem({ ...rejectItem, message: e.target.value })
+          }
+          placeholder="Introdu motivul refuzului cererii..."
+          style={{
+            minWidth: 400,
+            minHeight: 100,
+            borderRadius: 8,
+            border: "1px solid #bbbbbb",
+            marginBottom: 20,
+            padding: 10,
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <button
+            onClick={() => {
+              if (rejectItem.message.length === 0) {
+                toast.error("Trebuie să introduci motivul refuzului!");
+                return;
+              }
+              console.log("rehct", rejectItem.item);
+              window.location.href = `mailto:${rejectItem.item.email}?subject=Refuzare cerere secretariat USV&body=Bună ziua ${rejectItem.item.student},\n\n Cererea dumneavoastră a fost refuzată pe baza următorului motiv: ${rejectItem.message}`;
+              toast.success("Cererea a fost respinsă!");
+              setRejectItem({});
+              setIsDeleteItemActive(false);
+            }}
+            style={{ padding: "4px 6px", cursor: "pointer" }}
+          >
+            Trimite
+          </button>
+          <button
+            onClick={() => {
+              setIsDeleteItemActive(false);
+              setRejectItem({});
+            }}
+            style={{ padding: "4px 6px", cursor: "pointer" }}
+          >
+            Anulează
+          </button>
+        </div>
+      </Modal>
     </>
   );
 };
@@ -389,7 +235,6 @@ const PaginatedItems = ({ items, itemsPerPage }) => {
 
 function Home() {
   const [data, setData] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -405,6 +250,7 @@ function Home() {
           program: item["Program de studiu"] || "", // Fallback to empty string if field is missing
           tuition: item["Regim de studiu"] || "", // Fallback to empty string if field is missing
           usage: item["Motivul cererii"] || "", // Fallback to empty string if field is missing
+          email: item["Adresă de e-mail"],
         }));
         setData(mappedData);
       } catch (error) {
@@ -426,7 +272,7 @@ function Home() {
             width: "100%",
           }}
         >
-          <h1>Cereri aprobate: {items.length}</h1>
+          <h1>Cereri în așteptare: {data.length}</h1>
         </div>
         <table>
           <thead>

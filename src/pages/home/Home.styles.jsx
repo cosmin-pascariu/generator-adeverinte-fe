@@ -8,7 +8,7 @@ export const HomeContainer = styled.div`
   margin-top: 20px;
   width: 100%;
   padding: 0 50px;
-  padding-bottom: 100px;
+  padding-bottom: 50px;
 
   h1 {
     text-align: left;
@@ -25,6 +25,15 @@ export const HomeContainer = styled.div`
     padding: 10px;
     text-align: left;
     background-color: ${Colors.white};
+  }
+
+  tr:hover {
+    background-color: #cccccc;
+    cursor: pointer;
+  }
+
+  tr:active {
+    background-color: #dddddd;
   }
 
   th:nth-child(1) {

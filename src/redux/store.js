@@ -5,6 +5,7 @@ import studentsReducer from "./reducers/studentsReducer";
 import usersReducer from "./reducers/userReducer";
 import facultiesReducer from "./reducers/facultiesReducer";
 import secretariesReducer from "./reducers/secretariesReducer";
+import requestsReducer from "./reducers/requestsReducer";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     faculty: facultiesReducer,
     student: studentsReducer,
     secretary: secretariesReducer,
+    requests: requestsReducer,
   },
 });

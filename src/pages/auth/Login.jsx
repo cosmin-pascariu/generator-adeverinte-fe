@@ -37,13 +37,6 @@ function Login() {
 
   useEffect(() => {
     if (accessTokenData) {
-      // dispatch(
-      //   login({
-      //     userName:
-      //       accessTokenData.given_name + " " + accessTokenData.family_name,
-      //     picture: accessTokenData.picture,
-      //   })
-      // );
       localStorage.setItem(
         "userName",
         accessTokenData.given_name + " " + accessTokenData.family_name

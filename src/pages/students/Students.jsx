@@ -78,21 +78,23 @@ function StudentsPage() {
 
   const getData = async () => {
     const data = await getStudentsAction();
-    const studs = data.map((item) => ({
-      id: item.id,
-      "Inițială Tată": item.initiala_tata,
-      "Email student": item.email,
-      "Denumire program de studii": item.denumire_program_studii,
-      "Ciclu de studii": item.ciclu_studii,
-      "An studiu": item.an_studiu,
-      // item.domeniu_studii: null,
-      "Forma învățământ": item.forma_invatamant,
-      Finanțare: item.finantare,
-      Nume: item.nume,
-      Prenume: item.prenume,
-      Sex: item.sex,
-    }));
-    dispatch(setStudents(studs));
+    if (data) {
+      const studs = data.map((item) => ({
+        id: item.id,
+        "Inițială Tată": item.initiala_tata,
+        "Email student": item.email,
+        "Denumire program de studii": item.denumire_program_studii,
+        "Ciclu de studii": item.ciclu_studii,
+        "An studiu": item.an_studiu,
+        // item.domeniu_studii: null,
+        "Forma învățământ": item.forma_invatamant,
+        Finanțare: item.finantare,
+        Nume: item.nume,
+        Prenume: item.prenume,
+        Sex: item.sex,
+      }));
+      dispatch(setStudents(studs));
+    }
   };
 
   useEffect(() => {
